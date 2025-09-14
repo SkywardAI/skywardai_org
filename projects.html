@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Papers - SkywardAI Labs</title>
-    <meta name="description" content="Complete list of research papers from SkywardAI Labs">
+    <title>Projects - SkywardAI Labs</title>
+    <meta name="description" content="Complete list of projects from SkywardAI Labs">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-9DQJXD1CRY');
     </script>
     <style>
@@ -134,62 +133,6 @@
             background-clip: text;
         }
 
-        .papers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .paper-card {
-            background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .paper-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.1);
-        }
-
-        .paper-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .paper-authors {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .paper-abstract {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .paper-link {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .paper-link:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-        }
-
         .back-link {
             display: inline-block;
             color: var(--accent);
@@ -225,12 +168,68 @@
             border-color: var(--accent);
         }
 
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.1);
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-date {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
             
-            .papers-grid {
+            .projects-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -246,8 +245,8 @@
             <a href="index.html" class="logo">SkywardAI Labs</a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="papers.html">Research</a></li>
-                <li><a href="kaggle.html">Projects</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="projects.html">Projects</a></li>
                 <li><a href="index.html#principles">Principles</a></li>
                 <li><a href="index.html#sustainability">Sustainability</a></li>
                 <li><a href="index.html#about">About</a></li>
@@ -259,33 +258,73 @@
     <main class="main-content">
         <div class="container">
             <a href="index.html" class="back-link">← Back to Home</a>
-            <h1 class="page-title">All Research Papers</h1>
+            <h1 class="page-title">All Projects</h1>
             <div class="sort-controls">
-                <button class="sort-btn active" onclick="sortPapers('newest')">Newest First</button>
-                <button class="sort-btn" onclick="sortPapers('oldest')">Oldest First</button>
+                <button class="sort-btn active" onclick="sortProjects('newest')">Newest First</button>
+                <button class="sort-btn" onclick="sortProjects('oldest')">Oldest First</button>
             </div>
-            <div class="papers-grid" id="papersGrid">
-                <!-- Papers will be loaded here -->
+            <div class="projects-grid" id="projectsGrid">
+                <!-- Projects will be loaded here -->
             </div>
         </div>
     </main>
 
     <script>
-        // All Papers Configuration (latest first)
-        const allPapers = [
+        // All Projects Configuration (latest first)
+        const allProjects = [
             {
-                title: "GraphDART: Graph Distillation for Efficient Advanced Persistent Threat Detection",
-                authors: "Saba Fathi Rabooki, Bowen Li, Falih Gozi Febrinanto",
-                abstract: "A modular framework designed to distill provenance graphs into compact yet informative representations, enabling scalable and effective anomaly detection for Advanced Persistent Threats (APTs) in cyber-physical-social systems.",
-                link: "https://arxiv.org/abs/2501.02796",
-                date: "2025-01-07"
+                title: "It's All About Efficiency",
+                description: "Comprehensive analysis and optimization techniques for improving model efficiency in machine learning workflows and deployment scenarios.",
+                link: "https://www.kaggle.com/writeups/aisuko/its-all-about-efficiency#3281990",
+                date: "2025-09-14"
             },
             {
-                title: "Fine-tuned large language models into traditional back-end web architectures",
-                authors: "Bowen Li, Chuan Zhang",
-                abstract: "Integrating Large Language Models into traditional back-end systems can significantly reduce development overhead and enhance flexibility. We developed a specialized dataset through advanced prompt engineering and fine-tuned LLama3 using QLoRA, achieving 76.5% accuracy with 3.56s response time.",
-                link: "https://doi.org/10.54517/cte3168",
-                date: "2024-12-15"
+                title: "Distributed Training on Multiple GPUs",
+                description: "Comprehensive guide to distributed training across multiple GPUs using various parallelization strategies and optimization techniques for large-scale model training.",
+                link: "https://www.kaggle.com/code/aisuko/distributed-training-on-multiple-gpus",
+                date: "2025-01-12"
+            },
+            {
+                title: "Stable Diffusion Integrates LoRA through PEFT",
+                description: "Integration of Low-Rank Adaptation (LoRA) with Stable Diffusion using Parameter-Efficient Fine-Tuning (PEFT) for customized image generation.",
+                link: "https://www.kaggle.com/code/aisuko/stable-diffusion-integrates-lora-through-peft",
+                date: "2025-01-11"
+            },
+            {
+                title: "Multiple GPUs Fine-tuning LLaMA3.1 with FSDP and QLoRA",
+                description: "Distributed training implementation using multiple GPUs with Fully Sharded Data Parallel (FSDP) and Quantized Low-Rank Adaptation (QLoRA) for efficient LLaMA3.1 fine-tuning.",
+                link: "https://www.kaggle.com/code/aisuko/multiple-gpus-ft-llama3-1-with-fsdp-and-qlora",
+                date: "2025-01-10"
+            },
+            {
+                title: "Fine-tuning LLaMA2 with DPO",
+                description: "Direct Preference Optimization implementation for LLaMA2 model alignment and improved performance on human preference tasks.",
+                link: "https://www.kaggle.com/code/aisuko/fine-tuning-llama2-with-dpo",
+                date: "2025-01-05"
+            },
+            {
+                title: "Fine-tuning T5-Small with LoRA",
+                description: "Low-Rank Adaptation technique applied to T5-Small model for parameter-efficient fine-tuning on text generation tasks.",
+                link: "https://www.kaggle.com/code/aisuko/fine-tuning-t5-small-with-lora",
+                date: "2024-12-28"
+            },
+            {
+                title: "Text-to-Video with AnimateDiff",
+                description: "Video generation from text prompts using AnimateDiff framework for creating animated content from textual descriptions.",
+                link: "https://www.kaggle.com/code/aisuko/text-to-video-with-animatediff",
+                date: "2024-12-25"
+            },
+            {
+                title: "Fine-tuning Mistral-7B with DPO",
+                description: "Direct Preference Optimization (DPO) implementation for fine-tuning Mistral-7B model with improved alignment and performance on downstream tasks.",
+                link: "https://www.kaggle.com/code/aisuko/fine-tuning-mistral-7b-with-dpo",
+                date: "2024-12-20"
+            },
+            {
+                title: "Text-to-Speech",
+                description: "Speech synthesis implementation converting text input to natural-sounding audio output using modern TTS models and techniques.",
+                link: "https://www.kaggle.com/code/aisuko/text-to-speech",
+                date: "2024-12-10"
             }
         ];
 
@@ -306,46 +345,44 @@
             localStorage.setItem('theme', newTheme);
         });
 
-        // Load All Papers
-        function loadAllPapers() {
-            const papersGrid = document.getElementById('papersGrid');
+        // Load All Projects
+        function loadAllProjects() {
+            const projectsGrid = document.getElementById('projectsGrid');
             
-            papersGrid.innerHTML = allPapers.map(paper => `
-                <div class="paper-card">
-                    <h3 class="paper-title">${paper.title}</h3>
-                    <p class="paper-authors">${paper.authors}</p>
-                    <p class="paper-authors">Updated: ${paper.date}</p>
-                    <p class="paper-abstract">${paper.abstract}</p>
-                    <a href="${paper.link}" class="paper-link" target="_blank" rel="noopener">Read Paper</a>
+            projectsGrid.innerHTML = allProjects.map(project => `
+                <div class="project-card">
+                    <h3 class="project-title">${project.title}</h3>
+                    <p class="project-date">Updated: ${project.date}</p>
+                    <p class="project-description">${project.description}</p>
+                    <a href="${project.link}" class="project-link" target="_blank" rel="noopener">View Project</a>
                 </div>
             `).join('');
         }
 
         let currentSort = 'newest';
 
-        function sortPapers(order) {
+        function sortProjects(order) {
             currentSort = order;
             document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
             
-            const sorted = [...allPapers].sort((a, b) => {
+            const sorted = [...allProjects].sort((a, b) => {
                 return order === 'newest' ? new Date(b.date) - new Date(a.date) : new Date(a.date) - new Date(b.date);
             });
             
-            const papersGrid = document.getElementById('papersGrid');
-            papersGrid.innerHTML = sorted.map(paper => `
-                <div class="paper-card">
-                    <h3 class="paper-title">${paper.title}</h3>
-                    <p class="paper-authors">${paper.authors}</p>
-                    <p class="paper-authors">Updated: ${paper.date}</p>
-                    <p class="paper-abstract">${paper.abstract}</p>
-                    <a href="${paper.link}" class="paper-link" target="_blank" rel="noopener">Read Paper</a>
+            const projectsGrid = document.getElementById('projectsGrid');
+            projectsGrid.innerHTML = sorted.map(project => `
+                <div class="project-card">
+                    <h3 class="project-title">${project.title}</h3>
+                    <p class="project-date">Updated: ${project.date}</p>
+                    <p class="project-description">${project.description}</p>
+                    <a href="${project.link}" class="project-link" target="_blank" rel="noopener">View Project</a>
                 </div>
             `).join('');
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            loadAllPapers();
+            loadAllProjects();
         });
     </script>
 
