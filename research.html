@@ -104,6 +104,44 @@
             color: var(--accent);
         }
 
+        .nav-item {
+            position: relative;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            min-width: 150px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown a:hover {
+            background: var(--bg-secondary);
+            color: var(--accent);
+        }
+
         .theme-toggle {
             background: none;
             border: 2px solid var(--border);
@@ -250,11 +288,16 @@
             <a href="index.html" class="logo">SkywardAI Labs</a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="research.html">Research</a></li>
+                <li class="nav-item">
+                    <a href="research.html">Research</a>
+                    <div class="dropdown">
+                        <a href="research.html">Papers</a>
+                        <a href="https://aisuko.github.io/open-research/" target="_blank" rel="noopener">Research Group</a>
+                    </div>
+                </li>
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="index.html#principles">Principles</a></li>
                 <li><a href="index.html#sustainability">Sustainability</a></li>
-
             </ul>
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
         </div>
@@ -281,15 +324,8 @@
                 title: "GraphDART: Graph Distillation for Efficient Advanced Persistent Threat Detection",
                 authors: "Saba Fathi Rabooki, Bowen Li, Falih Gozi Febrinanto",
                 abstract: "A modular framework designed to distill provenance graphs into compact yet informative representations, enabling scalable and effective anomaly detection for Advanced Persistent Threats (APTs) in cyber-physical-social systems.",
-                link: "https://arxiv.org/abs/2501.02796",
+                link: "https://doi.org/10.1109/TCSS.2025.3606998",
                 date: "2025-01-07"
-            },
-            {
-                title: "Fine-tuned large language models into traditional back-end web architectures",
-                authors: "Bowen Li, Chuan Zhang",
-                abstract: "Integrating Large Language Models into traditional back-end systems can significantly reduce development overhead and enhance flexibility. We developed a specialized dataset through advanced prompt engineering and fine-tuned LLama3 using QLoRA, achieving 76.5% accuracy with 3.56s response time.",
-                link: "https://doi.org/10.54517/cte3168",
-                date: "2024-12-15"
             }
         ];
 
