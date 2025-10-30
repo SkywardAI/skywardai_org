@@ -103,6 +103,44 @@
             color: var(--accent);
         }
 
+        .nav-item {
+            position: relative;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            min-width: 150px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown a:hover {
+            background: var(--bg-secondary);
+            color: var(--accent);
+        }
+
         .theme-toggle {
             background: none;
             border: 2px solid var(--border);
@@ -249,11 +287,16 @@
             <a href="index.html" class="logo">SkywardAI Labs</a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="research.html">Research</a></li>
+                <li class="nav-item">
+                    <a href="research.html">Research</a>
+                    <div class="dropdown">
+                        <a href="research.html">Papers</a>
+                        <a href="https://aisuko.github.io/open-research/" target="_blank" rel="noopener">Research Group</a>
+                    </div>
+                </li>
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="index.html#principles">Principles</a></li>
                 <li><a href="index.html#sustainability">Sustainability</a></li>
-
             </ul>
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
         </div>
@@ -276,6 +319,18 @@
     <script>
         // All Projects Configuration (latest first)
         const allProjects = [
+            {
+                title: "Open Research Group - Responsible AI",
+                description: "Research group focused on Responsible AI (RAI), cloud-native ML environments, and university hackathon design and hosting.",
+                link: "https://aisuko.github.io/open-research/",
+                date: "2025-01-16"
+            },
+            {
+                title: "RMIT Hackathon 2025",
+                description: "GenAI & Cyber Security",
+                link: "https://kaggle.com/writeups/aisuko/rmit-hackathon-2025",
+                date: "2025-01-15"
+            },
             {
                 title: "Anonymous Checker",
                 description: "Accelerate research by ensuring anonymous review compliance. Automatically scans your research projects for potential identifying information that could compromise anonymity requirements.",
