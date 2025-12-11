@@ -3,30 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkywardAI Labs - Research in Our DNA</title>
-    <meta name="description" content="Open-source AI community focused on fully open LLMs, research excellence, and sustainable solar-powered AI solutions.">
+    <title>SkywardAI - AI Chatbot Platform & Edge Cloud Computing</title>
+    <meta name="description" content="Enterprise-grade AI chatbot platform with RAG capabilities and high-availability k3s edge cloud computing network with GPU worker nodes.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9DQJXD1CRY"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-9DQJXD1CRY');
-    </script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
         :root {
             --bg-primary: #0a0a0a;
             --bg-secondary: #1a1a1a;
-            --bg-card: #2a2a2a;
+            --bg-card: #111111;
             --text-primary: #ffffff;
             --text-secondary: #a0a0a0;
             --accent: #00d4aa;
             --accent-hover: #00b894;
             --border: #333333;
+            --gradient: linear-gradient(135deg, #00d4aa 0%, #00ff88 100%);
         }
 
         [data-theme="light"] {
@@ -83,7 +76,10 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--accent);
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-links {
@@ -101,44 +97,6 @@
         }
 
         .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        .nav-item {
-            position: relative;
-        }
-
-        .dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 0.5rem 0;
-            min-width: 150px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-        }
-
-        .nav-item:hover .dropdown {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .dropdown a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-
-        .dropdown a:hover {
-            background: var(--bg-secondary);
             color: var(--accent);
         }
 
@@ -161,53 +119,89 @@
         .hero {
             padding: 8rem 0 4rem;
             text-align: center;
-            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            background: radial-gradient(ellipse at center, rgba(0, 212, 170, 0.1) 0%, transparent 70%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300d4aa' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
         .hero h1 {
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 700;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--accent), #00ff88);
+            background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            position: relative;
+            z-index: 1;
         }
 
         .hero p {
             font-size: 1.25rem;
             color: var(--text-secondary);
             margin-bottom: 2rem;
-            max-width: 600px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
+            z-index: 1;
         }
 
-        .vision-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
         }
 
-        .vision-card {
-            background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .vision-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.1);
-        }
-
-        .vision-card h3 {
-            color: var(--accent);
-            margin-bottom: 0.5rem;
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
             font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
         }
 
         /* Sections */
@@ -219,172 +213,307 @@
             font-size: 2.5rem;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             color: var(--text-primary);
         }
 
-        /* Papers Grid */
-        .papers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
         }
 
-        .paper-card {
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
             background: var(--bg-card);
             padding: 2rem;
             border-radius: 12px;
             border: 1px solid var(--border);
             transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
+            position: relative;
+            overflow: hidden;
         }
 
-        .paper-card:hover {
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
             transform: translateY(-5px);
             border-color: var(--accent);
             box-shadow: 0 10px 30px rgba(0, 212, 170, 0.1);
         }
 
-        .paper-title {
-            font-size: 1.25rem;
-            font-weight: 600;
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-bottom: 1rem;
+            color: white;
+        }
+
+        .feature-card h3 {
             color: var(--text-primary);
-        }
-
-        .paper-authors {
-            color: var(--text-secondary);
             margin-bottom: 1rem;
-            font-size: 0.9rem;
+            font-weight: 600;
+            font-size: 1.25rem;
         }
 
-        .paper-abstract {
+        .feature-card p {
             color: var(--text-secondary);
-            margin-bottom: 1.5rem;
             line-height: 1.6;
         }
 
-        .paper-link {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin-top: auto;
-            width: fit-content;
+        .feature-list {
+            list-style: none;
+            margin-top: 1rem;
         }
 
-        .paper-link:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-        }
-
-        /* Social Links */
-        .social-links {
+        .feature-list li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
             display: flex;
-            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Architecture Diagrams */
+        .diagram-container {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .diagram-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Use Cases */
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .use-case {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .use-case:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        .use-case-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin: 3rem 0;
         }
 
-        .social-link {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            padding: 1rem 2rem;
+        .pricing-card {
             background: var(--bg-card);
-            border-radius: 8px;
+            padding: 2rem;
+            border-radius: 12px;
             border: 1px solid var(--border);
+            text-align: center;
+            position: relative;
             transition: all 0.3s ease;
         }
 
-        .social-link:hover {
-            color: var(--accent);
+        .pricing-card.featured {
             border-color: var(--accent);
-            transform: translateY(-2px);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.1);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .pricing-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: bold;
         }
 
         /* Footer */
         footer {
             background: var(--bg-secondary);
-            padding: 2rem 0;
-            text-align: center;
+            padding: 3rem 0 1rem;
             border-top: 1px solid var(--border);
         }
 
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
+        .footer-section h4 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--bg-secondary);
-                flex-direction: column;
-                padding: 1rem;
-                border-top: 1px solid var(--border);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
             }
 
             .hero {
                 padding: 6rem 0 3rem;
             }
 
-            .vision-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .papers-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .social-links {
+            .hero-buttons {
                 flex-direction: column;
                 align-items: center;
             }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-5px);
+            }
         }
 
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Loading animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid var(--border);
-            border-radius: 50%;
-            border-top-color: var(--accent);
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .animate-on-scroll {
+            animation: fadeInUp 0.6s ease-out;
         }
     </style>
 </head>
@@ -392,144 +521,482 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">SkywardAI Labs</div>
-            <ul class="nav-links" id="navLinks">
+            <div class="logo">SkywardAI</div>
+            <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li class="nav-item">
-                    <a href="research.html">Research</a>
-                    <div class="dropdown">
-                        <a href="research.html">Papers</a>
-                        <a href="https://aisuko.github.io/open-research/" target="_blank" rel="noopener">Research Group</a>
-                    </div>
-                </li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="#principles">Principles</a></li>
-                <li><a href="#sustainability">Sustainability</a></li>
+                <li><a href="#chatbot">Chatbot Platform</a></li>
+                <li><a href="#cloud">Edge Cloud</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
-            <div style="display: flex; align-items: center; gap: 1rem;">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
-            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="container">
-            <h1>SkywardAI Labs</h1>
-            <p>Pioneering fully open LLMs with research excellence and sustainable solar-powered AI solutions</p>
+            <h1>AI Chatbot Platform + Edge Cloud Computing</h1>
+            <p>Enterprise-grade RAG chatbots with secure, private deployment on high-availability k3s clusters with GPU worker nodes</p>
             
-            <div class="vision-grid">
-                <div class="vision-card">
-                    <h3>🔓 Fully Open LLM</h3>
-                    <p>Complete transparency in AI development with open-source models, datasets, and methodologies</p>
-                </div>
-                <div class="vision-card">
-                    <h3>🧬 Research in Our DNA</h3>
-                    <p>Rigorous scientific approach driving innovation in artificial intelligence and machine learning</p>
-                </div>
-                <div class="vision-card">
-                    <h3>📊 Dig Into the Data</h3>
-                    <p>Deep data analysis and evidence-based insights powering our AI breakthroughs</p>
-                </div>
-                <div class="vision-card">
-                    <h3>☀️ Sustainable AI Power</h3>
-                    <p>Solar-powered AI infrastructure for environmentally responsible computing</p>
-                </div>
+            <div class="hero-buttons">
+                <a href="#pricing" class="btn btn-primary">
+                    <i data-lucide="rocket"></i>
+                    Get Started
+                </a>
+                <a href="#demo" class="btn btn-secondary">
+                    <i data-lucide="play-circle"></i>
+                    Try Demo Chatbot
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Featured Papers -->
-    <section id="papers">
+    <!-- AI Chatbot Platform -->
+    <section id="chatbot">
         <div class="container">
-            <h2 class="section-title">Featured Research Papers</h2>
-            <div class="papers-grid" id="papersGrid">
-                <div class="loading"></div>
+            <h2 class="section-title">AI Chatbot Platform</h2>
+            <p class="section-subtitle">Enterprise-grade Retrieval-Augmented Generation with complete control over your data</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="brain"></i>
+                    </div>
+                    <h3>Advanced RAG Engine</h3>
+                    <p>Sophisticated retrieval-augmented generation with custom knowledge bases and vector embeddings</p>
+                    <ul class="feature-list">
+                        <li>Custom knowledge bases</li>
+                        <li>Vector embeddings</li>
+                        <li>Real-time learning</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                    <h3>Secure & Private</h3>
+                    <p>On-premises or edge deployment with complete data sovereignty and enterprise security</p>
+                    <ul class="feature-list">
+                        <li>On-prem deployment</li>
+                        <li>Data sovereignty</li>
+                        <li>End-to-end encryption</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <h3>Multi-Tenant Support</h3>
+                    <p>Isolated environments for multiple organizations with role-based access control</p>
+                    <ul class="feature-list">
+                        <li>Tenant isolation</li>
+                        <li>RBAC integration</li>
+                        <li>Custom branding</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="code"></i>
+                    </div>
+                    <h3>Embeddable Widget</h3>
+                    <p>Easy integration with existing applications via JavaScript widget or REST API</p>
+                    <ul class="feature-list">
+                        <li>JavaScript widget</li>
+                        <li>REST API</li>
+                        <li>Webhook support</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="cpu"></i>
+                    </div>
+                    <h3>Model Agnostic</h3>
+                    <p>Support for multiple AI models including Llama 3.1, GPT, Mistral, and custom models</p>
+                    <ul class="feature-list">
+                        <li>Llama 3.1, GPT, Mistral</li>
+                        <li>Custom model support</li>
+                        <li>Model switching</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="bar-chart"></i>
+                    </div>
+                    <h3>Analytics & Safety</h3>
+                    <p>Real-time analytics dashboard with safety guardrails and content filtering</p>
+                    <ul class="feature-list">
+                        <li>Real-time analytics</li>
+                        <li>Safety guardrails</li>
+                        <li>Content filtering</li>
+                    </ul>
+                </div>
             </div>
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="research.html" class="paper-link">View All Papers →</a>
+
+            <!-- RAG Architecture Diagram -->
+            <div class="diagram-container">
+                <h3 class="diagram-title">RAG Architecture</h3>
+                <svg viewBox="0 0 800 400" style="width: 100%; height: auto;">
+                    <!-- User Input -->
+                    <rect x="50" y="50" width="100" height="60" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="2"/>
+                    <text x="100" y="85" text-anchor="middle" fill="var(--text-primary)" font-size="12">User Query</text>
+                    
+                    <!-- Vector DB -->
+                    <rect x="200" y="50" width="100" height="60" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="2"/>
+                    <text x="250" y="85" text-anchor="middle" fill="var(--text-primary)" font-size="12">Vector DB</text>
+                    
+                    <!-- Knowledge Base -->
+                    <rect x="350" y="50" width="100" height="60" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="2"/>
+                    <text x="400" y="85" text-anchor="middle" fill="var(--text-primary)" font-size="12">Knowledge Base</text>
+                    
+                    <!-- LLM -->
+                    <rect x="200" y="200" width="100" height="60" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="2"/>
+                    <text x="250" y="235" text-anchor="middle" fill="var(--text-primary)" font-size="12">LLM Engine</text>
+                    
+                    <!-- Response -->
+                    <rect x="50" y="200" width="100" height="60" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="2"/>
+                    <text x="100" y="235" text-anchor="middle" fill="var(--text-primary)" font-size="12">AI Response</text>
+                    
+                    <!-- Arrows -->
+                    <path d="M150 80 L200 80" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M300 80 L350 80" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M250 110 L250 200" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M200 230 L150 230" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="var(--accent)"/>
+                        </marker>
+                    </defs>
+                </svg>
             </div>
         </div>
     </section>
 
-    <!-- Principles -->
-    <section id="principles">
+    <!-- Edge Cloud Computing -->
+    <section id="cloud">
         <div class="container">
-            <h2 class="section-title">Our Principles</h2>
-            <div class="vision-grid">
-                <div class="vision-card">
-                    <h3>Open Source First</h3>
-                    <p>All our research, code, and models are freely available to the global community</p>
+            <h2 class="section-title">Edge Cloud Computing Network</h2>
+            <p class="section-subtitle">High-availability k3s cluster with GPU worker nodes for AI workload orchestration</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="server"></i>
+                    </div>
+                    <h3>HA Control Plane</h3>
+                    <p>High-availability master nodes with automatic failover and distributed etcd storage</p>
+                    <ul class="feature-list">
+                        <li>Multi-master setup</li>
+                        <li>Automatic failover</li>
+                        <li>Distributed etcd</li>
+                    </ul>
                 </div>
-                <div class="vision-card">
-                    <h3>Scientific Rigor</h3>
-                    <p>Peer-reviewed research with reproducible results and transparent methodologies</p>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="zap"></i>
+                    </div>
+                    <h3>GPU Worker Nodes</h3>
+                    <p>Dedicated GPU nodes for AI inference, training, and model serving workloads</p>
+                    <ul class="feature-list">
+                        <li>NVIDIA GPU support</li>
+                        <li>Dynamic scaling</li>
+                        <li>Resource isolation</li>
+                    </ul>
                 </div>
-                <div class="vision-card">
-                    <h3>Collaborative Innovation</h3>
-                    <p>Building together with researchers, developers, and organizations worldwide</p>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="activity"></i>
+                    </div>
+                    <h3>Auto-Scheduling</h3>
+                    <p>Intelligent workload scheduling with resource optimization and load balancing</p>
+                    <ul class="feature-list">
+                        <li>Smart scheduling</li>
+                        <li>Resource optimization</li>
+                        <li>Load balancing</li>
+                    </ul>
                 </div>
-                <div class="vision-card">
-                    <h3>Ethical AI</h3>
-                    <p>Responsible development with consideration for societal impact and fairness</p>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="heart-pulse"></i>
+                    </div>
+                    <h3>Self-Healing</h3>
+                    <p>Automatic node health monitoring with self-healing capabilities and status maintenance</p>
+                    <ul class="feature-list">
+                        <li>Health monitoring</li>
+                        <li>Auto-recovery</li>
+                        <li>Status maintenance</li>
+                    </ul>
                 </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="download"></i>
+                    </div>
+                    <h3>Lightweight Agent</h3>
+                    <p>Easy deployment agent that can be installed anywhere with minimal resource footprint</p>
+                    <ul class="feature-list">
+                        <li>Minimal footprint</li>
+                        <li>Easy installation</li>
+                        <li>Cross-platform</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="shield"></i>
+                    </div>
+                    <h3>Private Network</h3>
+                    <p>Encrypted overlay network with secure communication between all cluster nodes</p>
+                    <ul class="feature-list">
+                        <li>Encrypted overlay</li>
+                        <li>Secure communication</li>
+                        <li>Network isolation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- k3s Cluster Diagram -->
+            <div class="diagram-container">
+                <h3 class="diagram-title">k3s HA Cluster + GPU Node Scheduling</h3>
+                <svg viewBox="0 0 800 500" style="width: 100%; height: auto;">
+                    <!-- Master Nodes -->
+                    <rect x="50" y="50" width="80" height="60" rx="8" fill="var(--accent)" opacity="0.3" stroke="var(--accent)" stroke-width="2"/>
+                    <text x="90" y="85" text-anchor="middle" fill="var(--text-primary)" font-size="10">Master 1</text>
+                    
+                    <rect x="150" y="50" width="80" height="60" rx="8" fill="var(--accent)" opacity="0.3" stroke="var(--accent)" stroke-width="2"/>
+                    <text x="190" y="85" text-anchor="middle" fill="var(--text-primary)" font-size="10">Master 2</text>
+                    
+                    <rect x="250" y="50" width="80" height="60" rx="8" fill="var(--accent)" opacity="0.3" stroke="var(--accent)" stroke-width="2"/>
+                    <text x="290" y="85" text-anchor="middle" fill="var(--text-primary)" font-size="10">Master 3</text>
+                    
+                    <!-- etcd -->
+                    <rect x="150" y="150" width="80" height="40" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="1"/>
+                    <text x="190" y="175" text-anchor="middle" fill="var(--text-primary)" font-size="10">etcd</text>
+                    
+                    <!-- GPU Worker Nodes -->
+                    <rect x="450" y="50" width="80" height="60" rx="8" fill="#ff6b6b" opacity="0.3" stroke="#ff6b6b" stroke-width="2"/>
+                    <text x="490" y="80" text-anchor="middle" fill="var(--text-primary)" font-size="10">GPU Node 1</text>
+                    <text x="490" y="95" text-anchor="middle" fill="var(--text-primary)" font-size="8">RTX 4090</text>
+                    
+                    <rect x="550" y="50" width="80" height="60" rx="8" fill="#ff6b6b" opacity="0.3" stroke="#ff6b6b" stroke-width="2"/>
+                    <text x="590" y="80" text-anchor="middle" fill="var(--text-primary)" font-size="10">GPU Node 2</text>
+                    <text x="590" y="95" text-anchor="middle" fill="var(--text-primary)" font-size="8">RTX 4090</text>
+                    
+                    <rect x="650" y="50" width="80" height="60" rx="8" fill="#ff6b6b" opacity="0.3" stroke="#ff6b6b" stroke-width="2"/>
+                    <text x="690" y="80" text-anchor="middle" fill="var(--text-primary)" font-size="10">GPU Node 3</text>
+                    <text x="690" y="95" text-anchor="middle" fill="var(--text-primary)" font-size="8">RTX 4090</text>
+                    
+                    <!-- Regular Worker Nodes -->
+                    <rect x="450" y="150" width="80" height="60" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="1"/>
+                    <text x="490" y="185" text-anchor="middle" fill="var(--text-primary)" font-size="10">Worker 1</text>
+                    
+                    <rect x="550" y="150" width="80" height="60" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="1"/>
+                    <text x="590" y="185" text-anchor="middle" fill="var(--text-primary)" font-size="10">Worker 2</text>
+                    
+                    <!-- Load Balancer -->
+                    <rect x="150" y="250" width="80" height="40" rx="8" fill="var(--accent)" opacity="0.4" stroke="var(--accent)" stroke-width="2"/>
+                    <text x="190" y="275" text-anchor="middle" fill="var(--text-primary)" font-size="10">Load Balancer</text>
+                    
+                    <!-- AI Workloads -->
+                    <rect x="450" y="300" width="60" height="40" rx="4" fill="#4ecdc4" opacity="0.3" stroke="#4ecdc4" stroke-width="1"/>
+                    <text x="480" y="325" text-anchor="middle" fill="var(--text-primary)" font-size="9">LLM Pod</text>
+                    
+                    <rect x="520" y="300" width="60" height="40" rx="4" fill="#4ecdc4" opacity="0.3" stroke="#4ecdc4" stroke-width="1"/>
+                    <text x="550" y="325" text-anchor="middle" fill="var(--text-primary)" font-size="9">RAG Pod</text>
+                    
+                    <rect x="590" y="300" width="60" height="40" rx="4" fill="#4ecdc4" opacity="0.3" stroke="#4ecdc4" stroke-width="1"/>
+                    <text x="620" y="325" text-anchor="middle" fill="var(--text-primary)" font-size="9">Chat Pod</text>
+                    
+                    <!-- Connections -->
+                    <path d="M90 110 L190 150" stroke="var(--accent)" stroke-width="1"/>
+                    <path d="M190 110 L190 150" stroke="var(--accent)" stroke-width="1"/>
+                    <path d="M290 110 L190 150" stroke="var(--accent)" stroke-width="1"/>
+                    
+                    <path d="M230 270 L450 80" stroke="var(--accent)" stroke-width="1"/>
+                    <path d="M230 270 L590 80" stroke="var(--accent)" stroke-width="1"/>
+                    <path d="M230 270 L690 80" stroke="var(--accent)" stroke-width="1"/>
+                    
+                    <path d="M490 110 L480 300" stroke="#4ecdc4" stroke-width="1"/>
+                    <path d="M590 110 L550 300" stroke="#4ecdc4" stroke-width="1"/>
+                    <path d="M690 110 L620 300" stroke="#4ecdc4" stroke-width="1"/>
+                </svg>
             </div>
         </div>
     </section>
 
-    <!-- Sustainability -->
-    <section id="sustainability">
+    <!-- Why SkywardAI -->
+    <section>
         <div class="container">
-            <h2 class="section-title">Sustainable AI Initiative</h2>
-            <div class="vision-grid">
-                <div class="vision-card">
-                    <h3>🌱 Carbon Neutral Computing</h3>
-                    <p>100% renewable energy powered AI training and inference infrastructure</p>
+            <h2 class="section-title">Why SkywardAI?</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="lock"></i>
+                    </div>
+                    <h3>Privacy-First</h3>
+                    <p>Complete data sovereignty with on-premises deployment. Your data never leaves your infrastructure.</p>
                 </div>
-                <div class="vision-card">
-                    <h3>☀️ Solar-Powered Data Centers</h3>
-                    <p>Custom solar installations powering our research and model deployment</p>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="settings"></i>
+                    </div>
+                    <h3>Flexible Architecture</h3>
+                    <p>Model-agnostic platform supporting any LLM. Kubernetes-native for seamless integration.</p>
                 </div>
-                <div class="vision-card">
-                    <h3>⚡ Energy Efficient Models</h3>
-                    <p>Optimized architectures reducing computational requirements without sacrificing performance</p>
-                </div>
-                <div class="vision-card">
-                    <h3>🌍 Environmental Impact</h3>
-                    <p>Measuring and minimizing our carbon footprint while maximizing research impact</p>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="rocket"></i>
+                    </div>
+                    <h3>Fast Deployment</h3>
+                    <p>Get up and running in minutes with our lightweight agent and automated cluster setup.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Use Cases -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Use Cases</h2>
+            <div class="use-case-grid">
+                <div class="use-case">
+                    <div class="use-case-icon">🛒</div>
+                    <h3>E-commerce Support</h3>
+                    <p>AI-powered customer service with product knowledge integration</p>
+                </div>
+                
+                <div class="use-case">
+                    <div class="use-case-icon">🏢</div>
+                    <h3>Private LLM Hosting</h3>
+                    <p>Secure enterprise LLM deployment with custom model fine-tuning</p>
+                </div>
+                
+                <div class="use-case">
+                    <div class="use-case-icon">🤖</div>
+                    <h3>Robotics AI</h3>
+                    <p>Edge AI processing for autonomous systems and robotic applications</p>
+                </div>
+                
+                <div class="use-case">
+                    <div class="use-case-icon">📡</div>
+                    <h3>IoT AI Processing</h3>
+                    <p>Distributed AI inference for IoT devices and sensor networks</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Pricing -->
+    <section id="pricing">
+        <div class="container">
+            <h2 class="section-title">Pricing</h2>
+            <p class="section-subtitle">Choose the plan that fits your needs</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="pricing-title">Free</h3>
+                    <div class="pricing-price">$0<span style="font-size: 1rem; color: var(--text-secondary);">/month</span></div>
+                    <ul class="pricing-features">
+                        <li>Single chatbot</li>
+                        <li>Basic RAG capabilities</li>
+                        <li>Community support</li>
+                        <li>Up to 1,000 queries/month</li>
+                        <li>Standard models only</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary" style="width: 100%; justify-content: center;">Get Started</a>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <h3 class="pricing-title">Pro</h3>
+                    <div class="pricing-price">$99<span style="font-size: 1rem; color: var(--text-secondary);">/month</span></div>
+                    <ul class="pricing-features">
+                        <li>Up to 10 chatbots</li>
+                        <li>Advanced RAG + embeddings</li>
+                        <li>Priority support</li>
+                        <li>Up to 50,000 queries/month</li>
+                        <li>All model support</li>
+                        <li>Custom knowledge bases</li>
+                        <li>Analytics dashboard</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" style="width: 100%; justify-content: center;">Start Free Trial</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3 class="pricing-title">Enterprise</h3>
+                    <div class="pricing-price">Custom</div>
+                    <ul class="pricing-features">
+                        <li>Unlimited chatbots</li>
+                        <li>Full k3s cluster deployment</li>
+                        <li>Dedicated support</li>
+                        <li>Unlimited queries</li>
+                        <li>Custom model training</li>
+                        <li>Multi-tenant architecture</li>
+                        <li>SLA guarantees</li>
+                        <li>On-premises deployment</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary" style="width: 100%; justify-content: center;">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer>
+    <footer id="contact">
         <div class="container">
-            <p>&copy; 2024 SkywardAI Labs. Open source, open science, open future.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <a href="#chatbot">Chatbot Platform</a>
+                    <a href="#cloud">Edge Cloud</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#">Documentation</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="#">API Documentation</a>
+                    <a href="#">Tutorials</a>
+                    <a href="#">Best Practices</a>
+                    <a href="#">Status Page</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <a href="#">About</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Contact</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <a href="https://github.com/skywardai" target="_blank">GitHub</a>
+                    <a href="#">Discord</a>
+                    <a href="#">Twitter</a>
+                    <a href="mailto:hello@skywardai.com">Email</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 SkywardAI. All rights reserved. | <a href="#" style="color: var(--text-secondary);">Privacy Policy</a> | <a href="#" style="color: var(--text-secondary);">Terms of Service</a></p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Featured Papers Configuration
-        const featuredPapers = [
-            {
-                title: "Fine-tuned large language models into traditional back-end web architectures",
-                authors: "Bowen Li, Chuan Zhang",
-                abstract: "Integrating Large Language Models into traditional back-end systems can significantly reduce development overhead and enhance flexibility. We developed a specialized dataset through advanced prompt engineering and fine-tuned LLama3 using QLoRA, achieving 76.5% accuracy with 3.56s response time.",
-                link: "https://doi.org/10.54517/cte3168",
-                date: "2024-12-15"
-            },
-            {
-                title: "GraphDART: Graph Distillation for Efficient Advanced Persistent Threat Detection",
-                authors: "Saba Fathi Rabooki, Bowen Li, Falih Gozi Febrinanto",
-                abstract: "A modular framework designed to distill provenance graphs into compact yet informative representations, enabling scalable and effective anomaly detection for Advanced Persistent Threats (APTs) in cyber-physical-social systems.",
-                link: "https://arxiv.org/abs/2501.02796",
-                date: "2025-01-07"
-            }
-        ];
+        // Initialize Lucide icons
+        lucide.createIcons();
 
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
@@ -549,36 +1016,6 @@
             localStorage.setItem('theme', newTheme);
         });
 
-        // Mobile Menu
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking on a link
-        navLinks.addEventListener('click', (e) => {
-            if (e.target.tagName === 'A') {
-                navLinks.classList.remove('active');
-            }
-        });
-
-        // Load Papers
-        function loadPapers() {
-            const papersGrid = document.getElementById('papersGrid');
-            
-            papersGrid.innerHTML = featuredPapers.map(paper => `
-                <div class="paper-card">
-                    <h3 class="paper-title">${paper.title}</h3>
-                    <p class="paper-authors">${paper.authors}</p>
-                    <p class="paper-authors">Updated: ${paper.date}</p>
-                    <p class="paper-abstract">${paper.abstract}</p>
-                    <a href="${paper.link}" class="paper-link" target="_blank" rel="noopener">Read Paper</a>
-                </div>
-            `).join('');
-        }
-
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -593,13 +1030,24 @@
             });
         });
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            loadPapers();
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-on-scroll');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards
+        document.querySelectorAll('.feature-card, .pricing-card, .use-case').forEach(el => {
+            observer.observe(el);
         });
-
-
     </script>
-
 </body>
 </html>
