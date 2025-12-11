@@ -1,995 +1,436 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkywardAI - AI Chatbot Platform & Edge Cloud Computing</title>
-    <meta name="description" content="Enterprise-grade AI chatbot platform with RAG capabilities and high-availability k3s edge cloud computing network with GPU worker nodes.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>SkywardAI Platform - AI Chatbots + HA k3s GPU Edge Cloud + Secure Mesh</title>
+    <meta name="description" content="Unified platform combining AI chatbots, high-availability k3s GPU edge cloud, and secure mesh networking on your own infrastructure.">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <style>
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #1a1a1a;
-            --bg-card: #111111;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --accent: #00d4aa;
-            --accent-hover: #00b894;
-            --border: #333333;
-            --gradient: linear-gradient(135deg, #00d4aa 0%, #00ff88 100%);
-        }
-
-        [data-theme="light"] {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8f9fa;
-            --bg-card: #ffffff;
-            --text-primary: #1a1a1a;
-            --text-secondary: #6c757d;
-            --accent: #00a085;
-            --accent-hover: #008f75;
-            --border: #e9ecef;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            transition: all 0.3s ease;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        /* Navigation */
-        nav {
-            background: var(--bg-secondary);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        .theme-toggle {
-            background: none;
-            border: 2px solid var(--border);
-            color: var(--text-primary);
-            padding: 0.5rem;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 8rem 0 4rem;
-            text-align: center;
-            background: radial-gradient(ellipse at center, rgba(0, 212, 170, 0.1) 0%, transparent 70%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300d4aa' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
-            animation: float 20s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-bottom: 3rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background: var(--gradient);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-primary);
-            border: 2px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        /* Sections */
-        section {
-            padding: 4rem 0;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            font-size: 1.1rem;
-        }
-
-        /* Feature Grid */
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .feature-card {
-            background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.1);
-        }
-
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--gradient);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .feature-card h3 {
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            font-weight: 600;
-            font-size: 1.25rem;
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .feature-list {
-            list-style: none;
-            margin-top: 1rem;
-        }
-
-        .feature-list li {
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .feature-list li::before {
-            content: '✓';
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        /* Architecture Diagrams */
-        .diagram-container {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2rem 0;
-            border: 1px solid var(--border);
-        }
-
-        .diagram-title {
-            text-align: center;
-            margin-bottom: 2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        /* Use Cases */
-        .use-case-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .use-case {
-            background: var(--bg-card);
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .use-case:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent);
-        }
-
-        .use-case-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Pricing */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .pricing-card {
-            background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            text-align: center;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .pricing-card.featured {
-            border-color: var(--accent);
-            transform: scale(1.05);
-        }
-
-        .pricing-card.featured::before {
-            content: 'Most Popular';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gradient);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.1);
-        }
-
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-5px);
-        }
-
-        .pricing-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        .pricing-price {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        .pricing-features {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .pricing-features li {
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .pricing-features li::before {
-            content: '✓';
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--bg-secondary);
-            padding: 3rem 0 1rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h4 {
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .footer-section a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            display: block;
-            margin-bottom: 0.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: var(--accent);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            color: var(--text-secondary);
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero {
-                padding: 6rem 0 3rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pricing-card.featured {
-                transform: none;
-            }
-
-            .pricing-card.featured:hover {
-                transform: translateY(-5px);
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00d4aa',
+                        'primary-hover': '#00b894',
+                    }
+                }
             }
         }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-on-scroll {
-            animation: fadeInUp 0.6s ease-out;
-        }
-    </style>
+    </script>
 </head>
-<body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">SkywardAI</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#chatbot">Chatbot Platform</a></li>
-                <li><a href="#cloud">Edge Cloud</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold bg-gradient-to-r from-primary to-green-400 bg-clip-text text-transparent">
+                        SkywardAI
+                    </div>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#product" class="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">Product</a>
+                    <a href="#chat" class="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">AI Chatbot</a>
+                    <a href="#edge" class="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">Edge Cloud</a>
+                    <a href="#mesh" class="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">Mesh</a>
+                    <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">Docs</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <button id="themeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+                    <button class="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">Login</button>
+                    <button class="px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded-lg transition-colors">Sign up</button>
+                </div>
+            </div>
         </div>
-    </nav>
+    </header>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <h1>AI Chatbot Platform + Edge Cloud Computing</h1>
-            <p>Enterprise-grade RAG chatbots with secure, private deployment on high-availability k3s clusters with GPU worker nodes</p>
-            
-            <div class="hero-buttons">
-                <a href="#pricing" class="btn btn-primary">
-                    <i data-lucide="rocket"></i>
-                    Get Started
-                </a>
-                <a href="#demo" class="btn btn-secondary">
-                    <i data-lucide="play-circle"></i>
-                    Try Demo Chatbot
-                </a>
+    <section class="pt-24 pb-16 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-green-400/10"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    <span class="bg-gradient-to-r from-primary to-green-400 bg-clip-text text-transparent">
+                        AI Chatbots + HA k3s GPU Edge Cloud
+                    </span>
+                    <br>
+                    <span class="text-gray-900 dark:text-white">On Your Own Infrastructure</span>
+                </h1>
+                
+                <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+                    SkywardAI unifies intelligent chatbots, high-availability k3s GPU clusters, and secure mesh networking. 
+                    Deploy, scale, and manage AI workloads with complete data sovereignty.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                    <button class="px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded-lg font-semibold transition-colors flex items-center justify-center gap-2">
+                        <i data-lucide="rocket" class="w-5 h-5"></i>
+                        Get Started
+                    </button>
+                    <button class="px-8 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white rounded-lg font-semibold transition-colors flex items-center justify-center gap-2">
+                        <i data-lucide="play-circle" class="w-5 h-5"></i>
+                        Try Demo Chatbot
+                    </button>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- AI Chatbot Platform -->
-    <section id="chatbot">
-        <div class="container">
-            <h2 class="section-title">AI Chatbot Platform</h2>
-            <p class="section-subtitle">Enterprise-grade Retrieval-Augmented Generation with complete control over your data</p>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="brain"></i>
-                    </div>
-                    <h3>Advanced RAG Engine</h3>
-                    <p>Sophisticated retrieval-augmented generation with custom knowledge bases and vector embeddings</p>
-                    <ul class="feature-list">
-                        <li>Custom knowledge bases</li>
-                        <li>Vector embeddings</li>
-                        <li>Real-time learning</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="shield-check"></i>
-                    </div>
-                    <h3>Secure & Private</h3>
-                    <p>On-premises or edge deployment with complete data sovereignty and enterprise security</p>
-                    <ul class="feature-list">
-                        <li>On-prem deployment</li>
-                        <li>Data sovereignty</li>
-                        <li>End-to-end encryption</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="users"></i>
-                    </div>
-                    <h3>Multi-Tenant Support</h3>
-                    <p>Isolated environments for multiple organizations with role-based access control</p>
-                    <ul class="feature-list">
-                        <li>Tenant isolation</li>
-                        <li>RBAC integration</li>
-                        <li>Custom branding</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="code"></i>
-                    </div>
-                    <h3>Embeddable Widget</h3>
-                    <p>Easy integration with existing applications via JavaScript widget or REST API</p>
-                    <ul class="feature-list">
-                        <li>JavaScript widget</li>
-                        <li>REST API</li>
-                        <li>Webhook support</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="cpu"></i>
-                    </div>
-                    <h3>Model Agnostic</h3>
-                    <p>Support for multiple AI models including Llama 3.1, GPT, Mistral, and custom models</p>
-                    <ul class="feature-list">
-                        <li>Llama 3.1, GPT, Mistral</li>
-                        <li>Custom model support</li>
-                        <li>Model switching</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="bar-chart"></i>
-                    </div>
-                    <h3>Analytics & Safety</h3>
-                    <p>Real-time analytics dashboard with safety guardrails and content filtering</p>
-                    <ul class="feature-list">
-                        <li>Real-time analytics</li>
-                        <li>Safety guardrails</li>
-                        <li>Content filtering</li>
-                    </ul>
-                </div>
+    <!-- Product Suite Overview -->
+    <section id="product" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">One Platform, Four Components</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300">Everything you need to run AI workloads on your own infrastructure</p>
             </div>
-
-            <!-- RAG Architecture Diagram -->
-            <div class="diagram-container">
-                <h3 class="diagram-title">RAG Architecture</h3>
-                <svg viewBox="0 0 800 400" style="width: 100%; height: auto;">
-                    <!-- User Input -->
-                    <rect x="50" y="50" width="100" height="60" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="2"/>
-                    <text x="100" y="85" text-anchor="middle" fill="var(--text-primary)" font-size="12">User Query</text>
-                    
-                    <!-- Vector DB -->
-                    <rect x="200" y="50" width="100" height="60" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="2"/>
-                    <text x="250" y="85" text-anchor="middle" fill="var(--text-primary)" font-size="12">Vector DB</text>
-                    
-                    <!-- Knowledge Base -->
-                    <rect x="350" y="50" width="100" height="60" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="2"/>
-                    <text x="400" y="85" text-anchor="middle" fill="var(--text-primary)" font-size="12">Knowledge Base</text>
-                    
-                    <!-- LLM -->
-                    <rect x="200" y="200" width="100" height="60" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="2"/>
-                    <text x="250" y="235" text-anchor="middle" fill="var(--text-primary)" font-size="12">LLM Engine</text>
-                    
-                    <!-- Response -->
-                    <rect x="50" y="200" width="100" height="60" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="2"/>
-                    <text x="100" y="235" text-anchor="middle" fill="var(--text-primary)" font-size="12">AI Response</text>
-                    
-                    <!-- Arrows -->
-                    <path d="M150 80 L200 80" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrowhead)"/>
-                    <path d="M300 80 L350 80" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrowhead)"/>
-                    <path d="M250 110 L250 200" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrowhead)"/>
-                    <path d="M200 230 L150 230" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrowhead)"/>
-                    
-                    <defs>
-                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                            <polygon points="0 0, 10 3.5, 0 7" fill="var(--accent)"/>
-                        </marker>
-                    </defs>
-                </svg>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary to-green-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="message-circle" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Skyward Chat</h3>
+                    <p class="text-gray-600 dark:text-gray-300">AI chatbot engine with private knowledge bases and model flexibility</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary to-green-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="cpu" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Skyward Edge</h3>
+                    <p class="text-gray-600 dark:text-gray-300">HA k3s cluster with GPU worker nodes and intelligent scheduling</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary to-green-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="network" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Skyward Mesh</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Zero-config secure networking connecting all your infrastructure</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary to-green-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="monitor" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Skyward Console</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Unified dashboard for monitoring clusters, GPUs, and chatbot analytics</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Edge Cloud Computing -->
-    <section id="cloud">
-        <div class="container">
-            <h2 class="section-title">Edge Cloud Computing Network</h2>
-            <p class="section-subtitle">High-availability k3s cluster with GPU worker nodes for AI workload orchestration</p>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="server"></i>
+    <!-- Skyward Chat -->
+    <section id="chat" class="py-16 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Skyward Chat</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                        Build intelligent chatbots that understand your private data. Everything runs on your infrastructure with complete control over models and knowledge bases.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                                <i data-lucide="database" class="w-4 h-4 text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Custom Knowledge Bases</h4>
+                                <p class="text-gray-600 dark:text-gray-300">Upload documents, connect databases, and create embeddings from your private data</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                                <i data-lucide="settings" class="w-4 h-4 text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Model Agnostic</h4>
+                                <p class="text-gray-600 dark:text-gray-300">Support for Llama 3.1, GPT, Mistral, and custom models with easy switching</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                                <i data-lucide="users" class="w-4 h-4 text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Multi-Tenant Architecture</h4>
+                                <p class="text-gray-600 dark:text-gray-300">Isolated environments with role-based access and custom branding</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3>HA Control Plane</h3>
-                    <p>High-availability master nodes with automatic failover and distributed etcd storage</p>
-                    <ul class="feature-list">
-                        <li>Multi-master setup</li>
-                        <li>Automatic failover</li>
-                        <li>Distributed etcd</li>
-                    </ul>
                 </div>
                 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="zap"></i>
+                <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-xl">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-8 h-8 bg-primary rounded-full"></div>
+                            <span class="font-semibold">AI Assistant</span>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+                            <p class="text-sm">How can I help you with your product documentation today?</p>
+                        </div>
+                        <div class="bg-primary/10 rounded-lg p-4 ml-8">
+                            <p class="text-sm">What are the system requirements for deployment?</p>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+                            <p class="text-sm">Based on your internal documentation, you'll need at least 3 nodes for HA deployment with 16GB RAM each and GPU support for AI workloads...</p>
+                        </div>
                     </div>
-                    <h3>GPU Worker Nodes</h3>
-                    <p>Dedicated GPU nodes for AI inference, training, and model serving workloads</p>
-                    <ul class="feature-list">
-                        <li>NVIDIA GPU support</li>
-                        <li>Dynamic scaling</li>
-                        <li>Resource isolation</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="activity"></i>
-                    </div>
-                    <h3>Auto-Scheduling</h3>
-                    <p>Intelligent workload scheduling with resource optimization and load balancing</p>
-                    <ul class="feature-list">
-                        <li>Smart scheduling</li>
-                        <li>Resource optimization</li>
-                        <li>Load balancing</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="heart-pulse"></i>
-                    </div>
-                    <h3>Self-Healing</h3>
-                    <p>Automatic node health monitoring with self-healing capabilities and status maintenance</p>
-                    <ul class="feature-list">
-                        <li>Health monitoring</li>
-                        <li>Auto-recovery</li>
-                        <li>Status maintenance</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="download"></i>
-                    </div>
-                    <h3>Lightweight Agent</h3>
-                    <p>Easy deployment agent that can be installed anywhere with minimal resource footprint</p>
-                    <ul class="feature-list">
-                        <li>Minimal footprint</li>
-                        <li>Easy installation</li>
-                        <li>Cross-platform</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="shield"></i>
-                    </div>
-                    <h3>Private Network</h3>
-                    <p>Encrypted overlay network with secure communication between all cluster nodes</p>
-                    <ul class="feature-list">
-                        <li>Encrypted overlay</li>
-                        <li>Secure communication</li>
-                        <li>Network isolation</li>
-                    </ul>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- k3s Cluster Diagram -->
-            <div class="diagram-container">
-                <h3 class="diagram-title">k3s HA Cluster + GPU Node Scheduling</h3>
-                <svg viewBox="0 0 800 500" style="width: 100%; height: auto;">
-                    <!-- Master Nodes -->
-                    <rect x="50" y="50" width="80" height="60" rx="8" fill="var(--accent)" opacity="0.3" stroke="var(--accent)" stroke-width="2"/>
-                    <text x="90" y="85" text-anchor="middle" fill="var(--text-primary)" font-size="10">Master 1</text>
+    <!-- Skyward Edge -->
+    <section id="edge" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Skyward Edge</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                    High-availability k3s cluster with GPU worker nodes. Automatically schedule AI workloads, maintain active status, and self-heal across your edge infrastructure.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                    <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="server" class="w-6 h-6 text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">HA Control Plane</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Three-node master setup with distributed etcd and automatic failover for zero-downtime operations</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                    <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="zap" class="w-6 h-6 text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">GPU Worker Nodes</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Dynamic scheduling of AI workloads onto A5000 and other GPU nodes with resource isolation</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                    <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="heart-pulse" class="w-6 h-6 text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Self-Healing</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Automatic pod restart, health monitoring, and "keep active" behavior for AI applications</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skyward Mesh -->
+    <section id="mesh" class="py-16 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Skyward Mesh</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                        Zero-configuration secure networking that connects your clusters, nodes, and services automatically. 
+                        Think Tailscale for your AI infrastructure.
+                    </p>
                     
-                    <rect x="150" y="50" width="80" height="60" rx="8" fill="var(--accent)" opacity="0.3" stroke="var(--accent)" stroke-width="2"/>
-                    <text x="190" y="85" text-anchor="middle" fill="var(--text-primary)" font-size="10">Master 2</text>
-                    
-                    <rect x="250" y="50" width="80" height="60" rx="8" fill="var(--accent)" opacity="0.3" stroke="var(--accent)" stroke-width="2"/>
-                    <text x="290" y="85" text-anchor="middle" fill="var(--text-primary)" font-size="10">Master 3</text>
-                    
-                    <!-- etcd -->
-                    <rect x="150" y="150" width="80" height="40" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="1"/>
-                    <text x="190" y="175" text-anchor="middle" fill="var(--text-primary)" font-size="10">etcd</text>
-                    
-                    <!-- GPU Worker Nodes -->
-                    <rect x="450" y="50" width="80" height="60" rx="8" fill="#ff6b6b" opacity="0.3" stroke="#ff6b6b" stroke-width="2"/>
-                    <text x="490" y="80" text-anchor="middle" fill="var(--text-primary)" font-size="10">GPU Node 1</text>
-                    <text x="490" y="95" text-anchor="middle" fill="var(--text-primary)" font-size="8">RTX 4090</text>
-                    
-                    <rect x="550" y="50" width="80" height="60" rx="8" fill="#ff6b6b" opacity="0.3" stroke="#ff6b6b" stroke-width="2"/>
-                    <text x="590" y="80" text-anchor="middle" fill="var(--text-primary)" font-size="10">GPU Node 2</text>
-                    <text x="590" y="95" text-anchor="middle" fill="var(--text-primary)" font-size="8">RTX 4090</text>
-                    
-                    <rect x="650" y="50" width="80" height="60" rx="8" fill="#ff6b6b" opacity="0.3" stroke="#ff6b6b" stroke-width="2"/>
-                    <text x="690" y="80" text-anchor="middle" fill="var(--text-primary)" font-size="10">GPU Node 3</text>
-                    <text x="690" y="95" text-anchor="middle" fill="var(--text-primary)" font-size="8">RTX 4090</text>
-                    
-                    <!-- Regular Worker Nodes -->
-                    <rect x="450" y="150" width="80" height="60" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="1"/>
-                    <text x="490" y="185" text-anchor="middle" fill="var(--text-primary)" font-size="10">Worker 1</text>
-                    
-                    <rect x="550" y="150" width="80" height="60" rx="8" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="1"/>
-                    <text x="590" y="185" text-anchor="middle" fill="var(--text-primary)" font-size="10">Worker 2</text>
-                    
-                    <!-- Load Balancer -->
-                    <rect x="150" y="250" width="80" height="40" rx="8" fill="var(--accent)" opacity="0.4" stroke="var(--accent)" stroke-width="2"/>
-                    <text x="190" y="275" text-anchor="middle" fill="var(--text-primary)" font-size="10">Load Balancer</text>
-                    
-                    <!-- AI Workloads -->
-                    <rect x="450" y="300" width="60" height="40" rx="4" fill="#4ecdc4" opacity="0.3" stroke="#4ecdc4" stroke-width="1"/>
-                    <text x="480" y="325" text-anchor="middle" fill="var(--text-primary)" font-size="9">LLM Pod</text>
-                    
-                    <rect x="520" y="300" width="60" height="40" rx="4" fill="#4ecdc4" opacity="0.3" stroke="#4ecdc4" stroke-width="1"/>
-                    <text x="550" y="325" text-anchor="middle" fill="var(--text-primary)" font-size="9">RAG Pod</text>
-                    
-                    <rect x="590" y="300" width="60" height="40" rx="4" fill="#4ecdc4" opacity="0.3" stroke="#4ecdc4" stroke-width="1"/>
-                    <text x="620" y="325" text-anchor="middle" fill="var(--text-primary)" font-size="9">Chat Pod</text>
-                    
-                    <!-- Connections -->
-                    <path d="M90 110 L190 150" stroke="var(--accent)" stroke-width="1"/>
-                    <path d="M190 110 L190 150" stroke="var(--accent)" stroke-width="1"/>
-                    <path d="M290 110 L190 150" stroke="var(--accent)" stroke-width="1"/>
-                    
-                    <path d="M230 270 L450 80" stroke="var(--accent)" stroke-width="1"/>
-                    <path d="M230 270 L590 80" stroke="var(--accent)" stroke-width="1"/>
-                    <path d="M230 270 L690 80" stroke="var(--accent)" stroke-width="1"/>
-                    
-                    <path d="M490 110 L480 300" stroke="#4ecdc4" stroke-width="1"/>
-                    <path d="M590 110 L550 300" stroke="#4ecdc4" stroke-width="1"/>
-                    <path d="M690 110 L620 300" stroke="#4ecdc4" stroke-width="1"/>
-                </svg>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                                <i data-lucide="key" class="w-4 h-4 text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Identity-Based Access</h4>
+                                <p class="text-gray-600 dark:text-gray-300">Automatic device authentication and authorization based on identity, not network location</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                                <i data-lucide="shield-check" class="w-4 h-4 text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">End-to-End Encryption</h4>
+                                <p class="text-gray-600 dark:text-gray-300">All traffic encrypted with WireGuard-based protocols and automatic key rotation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-xl">
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <i data-lucide="server" class="w-6 h-6 text-primary"></i>
+                            </div>
+                            <span class="text-xs text-gray-600 dark:text-gray-300">Edge Node</span>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <i data-lucide="cloud" class="w-6 h-6 text-primary"></i>
+                            </div>
+                            <span class="text-xs text-gray-600 dark:text-gray-300">Cloud</span>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <i data-lucide="laptop" class="w-6 h-6 text-primary"></i>
+                            </div>
+                            <span class="text-xs text-gray-600 dark:text-gray-300">Device</span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
+                            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                            <span class="text-sm font-medium">Secure Mesh Active</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Why SkywardAI -->
-    <section>
-        <div class="container">
-            <h2 class="section-title">Why SkywardAI?</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="lock"></i>
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Why SkywardAI Platform</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300">Built for teams that need complete control over their AI infrastructure</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="lock" class="w-8 h-8 text-primary"></i>
                     </div>
-                    <h3>Privacy-First</h3>
-                    <p>Complete data sovereignty with on-premises deployment. Your data never leaves your infrastructure.</p>
+                    <h3 class="text-xl font-semibold mb-3">Privacy-by-Design</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Your data never leaves your infrastructure. Complete sovereignty over models and knowledge bases.</p>
                 </div>
                 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="settings"></i>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="shield-check" class="w-8 h-8 text-primary"></i>
                     </div>
-                    <h3>Flexible Architecture</h3>
-                    <p>Model-agnostic platform supporting any LLM. Kubernetes-native for seamless integration.</p>
+                    <h3 class="text-xl font-semibold mb-3">High Availability by Default</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Multi-master k3s setup with automatic failover and self-healing workloads.</p>
                 </div>
                 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="rocket"></i>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="zap" class="w-8 h-8 text-primary"></i>
                     </div>
-                    <h3>Fast Deployment</h3>
-                    <p>Get up and running in minutes with our lightweight agent and automated cluster setup.</p>
+                    <h3 class="text-xl font-semibold mb-3">GPU-Aware Edge Scheduling</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Intelligent workload placement across GPU resources with automatic optimization.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="code" class="w-8 h-8 text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Developer-First APIs</h3>
+                    <p class="text-gray-600 dark:text-gray-300">RESTful APIs, webhooks, and SDKs designed for developers who build AI applications.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Use Cases -->
-    <section>
-        <div class="container">
-            <h2 class="section-title">Use Cases</h2>
-            <div class="use-case-grid">
-                <div class="use-case">
-                    <div class="use-case-icon">🛒</div>
-                    <h3>E-commerce Support</h3>
-                    <p>AI-powered customer service with product knowledge integration</p>
-                </div>
-                
-                <div class="use-case">
-                    <div class="use-case-icon">🏢</div>
-                    <h3>Private LLM Hosting</h3>
-                    <p>Secure enterprise LLM deployment with custom model fine-tuning</p>
-                </div>
-                
-                <div class="use-case">
-                    <div class="use-case-icon">🤖</div>
-                    <h3>Robotics AI</h3>
-                    <p>Edge AI processing for autonomous systems and robotic applications</p>
-                </div>
-                
-                <div class="use-case">
-                    <div class="use-case-icon">📡</div>
-                    <h3>IoT AI Processing</h3>
-                    <p>Distributed AI inference for IoT devices and sensor networks</p>
-                </div>
+    <section class="py-16 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Use Cases</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300">Real-world applications running on SkywardAI Platform</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Pricing -->
-    <section id="pricing">
-        <div class="container">
-            <h2 class="section-title">Pricing</h2>
-            <p class="section-subtitle">Choose the plan that fits your needs</p>
             
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3 class="pricing-title">Free</h3>
-                    <div class="pricing-price">$0<span style="font-size: 1rem; color: var(--text-secondary);">/month</span></div>
-                    <ul class="pricing-features">
-                        <li>Single chatbot</li>
-                        <li>Basic RAG capabilities</li>
-                        <li>Community support</li>
-                        <li>Up to 1,000 queries/month</li>
-                        <li>Standard models only</li>
-                    </ul>
-                    <a href="#" class="btn btn-secondary" style="width: 100%; justify-content: center;">Get Started</a>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-lg text-center">
+                    <div class="text-4xl mb-4">🛒</div>
+                    <h3 class="text-lg font-semibold mb-3">E-commerce Support</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">AI-powered customer service with product catalog integration and order management</p>
                 </div>
                 
-                <div class="pricing-card featured">
-                    <h3 class="pricing-title">Pro</h3>
-                    <div class="pricing-price">$99<span style="font-size: 1rem; color: var(--text-secondary);">/month</span></div>
-                    <ul class="pricing-features">
-                        <li>Up to 10 chatbots</li>
-                        <li>Advanced RAG + embeddings</li>
-                        <li>Priority support</li>
-                        <li>Up to 50,000 queries/month</li>
-                        <li>All model support</li>
-                        <li>Custom knowledge bases</li>
-                        <li>Analytics dashboard</li>
-                    </ul>
-                    <a href="#" class="btn btn-primary" style="width: 100%; justify-content: center;">Start Free Trial</a>
+                <div class="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-lg text-center">
+                    <div class="text-4xl mb-4">🏢</div>
+                    <h3 class="text-lg font-semibold mb-3">Private LLM Hosting</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">Secure enterprise LLM deployment with custom model fine-tuning and inference</p>
                 </div>
                 
-                <div class="pricing-card">
-                    <h3 class="pricing-title">Enterprise</h3>
-                    <div class="pricing-price">Custom</div>
-                    <ul class="pricing-features">
-                        <li>Unlimited chatbots</li>
-                        <li>Full k3s cluster deployment</li>
-                        <li>Dedicated support</li>
-                        <li>Unlimited queries</li>
-                        <li>Custom model training</li>
-                        <li>Multi-tenant architecture</li>
-                        <li>SLA guarantees</li>
-                        <li>On-premises deployment</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-secondary" style="width: 100%; justify-content: center;">Contact Sales</a>
+                <div class="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-lg text-center">
+                    <div class="text-4xl mb-4">🤖</div>
+                    <h3 class="text-lg font-semibold mb-3">Robotics Edge AI</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">Edge AI processing for autonomous systems and industrial IoT applications</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-lg text-center">
+                    <div class="text-4xl mb-4">📚</div>
+                    <h3 class="text-lg font-semibold mb-3">Enterprise Assistant</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">Internal documentation and knowledge base chatbot for employee support</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Product</h4>
-                    <a href="#chatbot">Chatbot Platform</a>
-                    <a href="#cloud">Edge Cloud</a>
-                    <a href="#pricing">Pricing</a>
-                    <a href="#">Documentation</a>
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12">
+                <div class="text-2xl font-bold bg-gradient-to-r from-primary to-green-400 bg-clip-text text-transparent mb-4">
+                    SkywardAI Platform
+                </div>
+                <p class="text-gray-300 max-w-md">
+                    Unified AI chatbots, HA k3s GPU edge cloud, and secure mesh networking on your own infrastructure.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#chat" class="hover:text-primary transition-colors">Skyward Chat</a></li>
+                        <li><a href="#edge" class="hover:text-primary transition-colors">Skyward Edge</a></li>
+                        <li><a href="#mesh" class="hover:text-primary transition-colors">Skyward Mesh</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Skyward Console</a></li>
+                    </ul>
                 </div>
                 
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <a href="#">API Documentation</a>
-                    <a href="#">Tutorials</a>
-                    <a href="#">Best Practices</a>
-                    <a href="#">Status Page</a>
+                <div>
+                    <h4 class="font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="https://github.com/skywardai" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">GitHub</a></li>
+                        <li><a href="#orcid-publications" id="orcidLink" class="hover:text-primary transition-colors cursor-pointer">ORCID</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Documentation</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Contact</a></li>
+                    </ul>
                 </div>
                 
-                <div class="footer-section">
-                    <h4>Company</h4>
-                    <a href="#">About</a>
-                    <a href="#">Blog</a>
-                    <a href="#">Careers</a>
-                    <a href="#">Contact</a>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Connect</h4>
-                    <a href="https://github.com/skywardai" target="_blank">GitHub</a>
-                    <a href="#">Discord</a>
-                    <a href="#">Twitter</a>
-                    <a href="mailto:hello@skywardai.com">Email</a>
+                <div>
+                    <h4 class="font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-primary transition-colors">Terms</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Privacy</a></li>
+                    </ul>
                 </div>
             </div>
             
-            <div class="footer-bottom">
-                <p>&copy; 2024 SkywardAI. All rights reserved. | <a href="#" style="color: var(--text-secondary);">Privacy Policy</a> | <a href="#" style="color: var(--text-secondary);">Terms of Service</a></p>
+            <!-- ORCID Publications Section (Hidden by default) -->
+            <div id="orcid-publications" class="hidden mt-12 pt-8 border-t border-gray-800">
+                <h4 class="font-semibold mb-6 text-lg">Publications</h4>
+                <div id="publications-content">
+                    <div class="flex items-center py-4">
+                        <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-primary mr-3"></div>
+                        <span class="text-gray-300">Loading publications...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 SkywardAI. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1000,53 +441,150 @@
 
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
+        const html = document.documentElement;
 
         // Load saved theme
         const savedTheme = localStorage.getItem('theme') || 'dark';
-        body.setAttribute('data-theme', savedTheme);
-        themeToggle.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+        if (savedTheme === 'light') {
+            html.classList.remove('dark');
+        } else {
+            html.classList.add('dark');
+        }
 
         themeToggle.addEventListener('click', () => {
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            lucide.createIcons();
+        });
+
+        // ORCID Publications
+        let publicationsLoaded = false;
+
+        async function loadORCIDPublications() {
+            if (publicationsLoaded) return;
             
-            body.setAttribute('data-theme', newTheme);
-            themeToggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
-            localStorage.setItem('theme', newTheme);
+            const container = document.getElementById('publications-content');
+            const orcidId = '0009-0007-6470-5607';
+            const cacheKey = 'orcidWorksCache';
+            const timestampKey = 'orcidWorksLastFetched';
+            const cacheExpiry = 7 * 24 * 60 * 60 * 1000;
+
+            try {
+                const cachedData = localStorage.getItem(cacheKey);
+                const lastFetched = localStorage.getItem(timestampKey);
+                const now = Date.now();
+
+                if (cachedData && lastFetched && (now - parseInt(lastFetched)) < cacheExpiry) {
+                    const works = JSON.parse(cachedData);
+                    renderPublications(works, container);
+                    publicationsLoaded = true;
+                    return;
+                }
+
+                const response = await fetch(`https://pub.orcid.org/v3.0/${orcidId}/works`, {
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (!response.ok) throw new Error('Failed to fetch publications');
+
+                const data = await response.json();
+                const workPromises = data.group?.slice(0, 8).map(async (group) => {
+                    const workSummary = group['work-summary'][0];
+                    const putCode = workSummary['put-code'];
+                    
+                    try {
+                        const detailResponse = await fetch(`https://pub.orcid.org/v3.0/${orcidId}/work/${putCode}`, {
+                            headers: { 'Accept': 'application/json' }
+                        });
+                        
+                        if (detailResponse.ok) {
+                            const detailData = await detailResponse.json();
+                            const externalIds = detailData['external-ids']?.['external-id'] || [];
+                            const doiId = externalIds.find(id => id['external-id-type'] === 'doi');
+                            const url = doiId ? `https://doi.org/${doiId['external-id-value']}` : `https://orcid.org/${orcidId}/work/${putCode}`;
+                            
+                            return {
+                                title: detailData.title?.title?.value || workSummary.title?.title?.value || 'Untitled',
+                                year: detailData['publication-date']?.year?.value || workSummary['publication-date']?.year?.value || 'Unknown',
+                                journal: detailData['journal-title']?.value || workSummary['journal-title']?.value || '',
+                                url: url
+                            };
+                        }
+                    } catch (error) {
+                        console.warn('Failed to fetch detailed work info:', error);
+                    }
+                    
+                    return {
+                        title: workSummary.title?.title?.value || 'Untitled',
+                        year: workSummary['publication-date']?.year?.value || 'Unknown',
+                        journal: workSummary['journal-title']?.value || '',
+                        url: `https://orcid.org/${orcidId}/work/${putCode}`
+                    };
+                }) || [];
+
+                const works = (await Promise.all(workPromises)).filter(work => work.title !== 'Untitled');
+                localStorage.setItem(cacheKey, JSON.stringify(works));
+                localStorage.setItem(timestampKey, now.toString());
+                renderPublications(works, container);
+                publicationsLoaded = true;
+
+            } catch (error) {
+                console.error('Error loading ORCID publications:', error);
+                container.innerHTML = '<p class="text-gray-300">Unable to load publications right now.</p>';
+            }
+        }
+
+        function renderPublications(works, container) {
+            if (!works || works.length === 0) {
+                container.innerHTML = '<p class="text-gray-300">No publications found.</p>';
+                return;
+            }
+
+            const publicationsHTML = works.map(work => `
+                <div class="mb-4 pb-4 border-b border-gray-700 last:border-b-0">
+                    <h5 class="font-medium mb-1">
+                        <a href="${work.url}" target="_blank" rel="noopener noreferrer" 
+                           class="text-primary hover:text-primary-hover transition-colors hover:underline">
+                            ${work.title}
+                        </a>
+                    </h5>
+                    <p class="text-sm text-gray-400">
+                        ${work.year}${work.journal ? ` • ${work.journal}` : ''}
+                    </p>
+                </div>
+            `).join('');
+
+            container.innerHTML = publicationsHTML;
+        }
+
+        // ORCID Link Handler
+        document.getElementById('orcidLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            const publicationsSection = document.getElementById('orcid-publications');
+            
+            if (publicationsSection.classList.contains('hidden')) {
+                publicationsSection.classList.remove('hidden');
+                loadORCIDPublications();
+            }
+            
+            publicationsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
 
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                if (this.id === 'orcidLink') return; // Skip for ORCID link
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
-        });
-
-        // Animate elements on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-on-scroll');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all feature cards
-        document.querySelectorAll('.feature-card, .pricing-card, .use-case').forEach(el => {
-            observer.observe(el);
         });
     </script>
 </body>
