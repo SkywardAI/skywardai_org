@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skyward AI | Agentic AI Platform for the Edge</title>
+  <meta name="description" content="Agentic AI applications and platforms that prioritize accessibility, sustainability, and high performance on consumer-grade hardware." />
+  <meta name="keywords" content="agentic AI, edge kubernetes, private cloud, HTTPS ingress, overlay network, accessible AI" />
+  <meta property="og:title" content="Skyward AI | Agentic AI Platform" />
+  <meta property="og:description" content="Dedicated to building agentic AI applications and platforms that prioritize accessibility, sustainability, and high performance on consumer-grade hardware." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3ctext y='.9em' font-size='90'%3e%F0%9F%9A%80%3c/text%3e%3c/svg%3e" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'media',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+              400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8',
+              800: '#1e40af', 900: '#1e3a8a', 950: '#172554'
+            },
+            accent: {
+              cyan: '#06b6d4', emerald: '#10b981'
+            }
+          },
+          fontFamily: {
+            display: ['Space Grotesk', 'Segoe UI', 'sans-serif']
+          },
+          boxShadow: {
+            neural: '0 0 30px rgba(59, 130, 246, 0.3), 0 0 60px rgba(16, 185, 129, 0.2)'
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'gradient': 'gradient 8s ease infinite'
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<body class="antialiased text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-950 min-h-screen transition-colors duration-300">
+  <div class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-500/10 to-emerald-500/10 dark:from-gray-950 dark:via-blue-950/20 dark:to-emerald-500/10"></div>
+      <div class="absolute inset-0 grid-pattern opacity-30"></div>
+      <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl animate-float"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl animate-float" style="animation-delay: -2s;"></div>
+      <div class="absolute top-1/2 right-1/3 w-80 h-80 bg-cyan-500/20 rounded-full blur-3xl animate-float" style="animation-delay: -4s;"></div>
+    </div>
+
+    <header class="fixed top-0 w-full z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="glass-strong rounded-2xl border border-gray-200/60 dark:border-gray-700/50 shadow-lg px-6 py-3 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-xl neural-bg shadow-lg flex items-center justify-center">
+              <span class="text-white font-bold text-sm">SA</span>
+            </div>
+            <div class="hidden sm:block">
+              <p class="text-sm font-semibold gradient-text">Skyward AI</p>
+              <p class="text-xs text-gray-600 dark:text-gray-400">Agentic Edge Platform</p>
+            </div>
+          </div>
+          <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+            <a class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors" href="#platform">Platform</a>
+            <a class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors" href="#architecture">Architecture</a>
+            <a class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors" href="#edge">Edge Stack</a>
+            <a class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors" href="#contact">Contact</a>
+          </nav>
+          <div class="flex items-center gap-3 text-sm">
+            <a class="hidden sm:inline-flex px-4 py-2 rounded-xl bg-white/80 dark:bg-gray-800/70 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 hover:shadow-neural transition-all duration-300 font-medium" href="#architecture">View Architecture</a>
+            <a class="px-4 py-2 rounded-xl neural-bg text-white transition-all duration-300 shadow-lg hover:shadow-primary-500/50 font-medium" href="https://github.com/skywardai">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="relative pt-32 pb-12">
+      <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+        <div class="space-y-8 flex flex-col items-center">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-blue-200 dark:border-blue-800 shadow-sm">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span class="text-primary-700 dark:text-primary-300 font-semibold text-sm">Private Cloud. Edge First.</span>
+            <span class="text-gray-500 dark:text-gray-400 text-sm">·</span>
+            <span class="text-gray-600 dark:text-gray-400 text-sm">Built for real-world constraints</span>
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+            <span class="gradient-text">Agentic AI</span>
+            <br />
+            <span class="text-gray-900 dark:text-white">for Everyone,</span>
+            <br />
+            <span class="text-gray-900 dark:text-white">from the Edge Up</span>
+          </h1>
+          <p class="text-lg text-gray-600 dark:text-gray-300 max-w-xl leading-relaxed">
+            Dedicated to building agentic AI applications and platforms that prioritize accessibility, sustainability, and high performance on consumer-grade hardware.
+          </p>
+          <div class="flex flex-wrap gap-3 justify-center">
+            <a class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-primary-500 text-white hover:from-primary-500 hover:to-primary-400 transition-all duration-300 shadow-lg hover:shadow-primary-500/50 font-medium" href="#contact">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+              Start a Pilot
+            </a>
+            <a class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/80 dark:bg-gray-800/70 backdrop-blur-md border border-gray-200/60 dark:border-gray-700/50 hover:shadow-neural transition-all duration-300 font-medium" href="#platform">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+              Explore Platform
+            </a>
+            <a class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/80 dark:bg-gray-800/70 backdrop-blur-md border border-gray-200/60 dark:border-gray-700/50 hover:shadow-neural transition-all duration-300 font-medium" href="#edge">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              See the Stack
+            </a>
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+            <span class="font-medium uppercase tracking-wide text-xs text-gray-500 dark:text-gray-500">Trusted by teams building</span>
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 dark:bg-gray-800/70 backdrop-blur-md border border-gray-200/60 dark:border-gray-700/50 font-medium text-gray-700 dark:text-gray-300">Public services</span>
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 dark:bg-gray-800/70 backdrop-blur-md border border-gray-200/60 dark:border-gray-700/50 font-medium text-gray-700 dark:text-gray-300">Education</span>
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 dark:bg-gray-800/70 backdrop-blur-md border border-gray-200/60 dark:border-gray-700/50 font-medium text-gray-700 dark:text-gray-300">Manufacturing</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-4 w-full">
+            <div class="text-center">
+              <div class="text-3xl font-bold gradient-text">30%</div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Lower Cloud Spend</p>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold gradient-text">99.9%</div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Edge Uptime</p>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold gradient-text">2x</div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Faster On-Device</p>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold gradient-text">24/7</div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Safe Operations</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <section id="platform" class="py-20 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-gray-50/50 to-transparent dark:via-gray-900/50"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary-200 dark:border-primary-800 mb-4">
+          <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          <span class="text-sm font-medium text-primary-700 dark:text-primary-300">Platform Pillars</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">
+          <span class="gradient-text">Accessible. Sustainable.</span>
+          <span class="text-gray-900 dark:text-white">Performance-First.</span>
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          Deliver agentic AI to real users without expensive GPUs or locked-in hyperscale platforms.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="glass rounded-2xl p-8 card-hover border border-gray-200/50 dark:border-gray-700/50">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center mb-6 shadow-lg shadow-primary-500/30">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"></path></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Accessibility by Design</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Run agentic workflows on affordable hardware so more communities can adopt AI responsibly.</p>
+        </div>
+        <div class="glass rounded-2xl p-8 card-hover border border-gray-200/50 dark:border-gray-700/50">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500 to-emerald-500 flex items-center justify-center mb-6 shadow-lg shadow-emerald-500/30">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Sustainable Operations</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Edge-aware scheduling and efficient models reduce energy use and compute waste.</p>
+        </div>
+        <div class="glass rounded-2xl p-8 card-hover border border-gray-200/50 dark:border-gray-700/50">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-500 to-cyan-500 flex items-center justify-center mb-6 shadow-lg shadow-cyan-500/30">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-3.313 0-6 2.239-6 5s2.687 5 6 5 6-2.239 6-5-2.687-5-6-5zm0 0V3"></path></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">High Performance</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Agentic planning, cached execution, and fast inference deliver responsive experiences.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="architecture" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary-200 dark:border-primary-800">
+            <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <span class="text-sm font-medium text-primary-700 dark:text-primary-300">Architecture</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Cloud-native edge, protected by design</h2>
+          <p class="text-lg text-gray-600 dark:text-gray-400">We deliver the agentic app platform with infrastructure solutions based on cloud-native edge Kubernetes clusters. A secure overlay network exposes services through HTTPS ingress, keeping private clouds fully in control.</p>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="glass rounded-xl border border-gray-200/50 dark:border-gray-700/50 p-4 card-hover">
+              <p class="text-sm font-semibold text-gray-900 dark:text-white">Agent Runtime</p>
+              <p class="text-xs text-gray-600 dark:text-gray-400">Policy-driven tool use, guardrails, and approvals.</p>
+            </div>
+            <div class="glass rounded-xl border border-gray-200/50 dark:border-gray-700/50 p-4 card-hover">
+              <p class="text-sm font-semibold text-gray-900 dark:text-white">Control Plane</p>
+              <p class="text-xs text-gray-600 dark:text-gray-400">Unified management for sites, clusters, and workloads.</p>
+            </div>
+            <div class="glass rounded-xl border border-gray-200/50 dark:border-gray-700/50 p-4 card-hover">
+              <p class="text-sm font-semibold text-gray-900 dark:text-white">Overlay Network</p>
+              <p class="text-xs text-gray-600 dark:text-gray-400">Encrypted routing across distributed private cloud nodes.</p>
+            </div>
+            <div class="glass rounded-xl border border-gray-200/50 dark:border-gray-700/50 p-4 card-hover">
+              <p class="text-sm font-semibold text-gray-900 dark:text-white">HTTPS Ingress</p>
+              <p class="text-xs text-gray-600 dark:text-gray-400">Policy-aware exposure with zero-trust access control.</p>
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="absolute -inset-4 rounded-3xl blur-3xl opacity-30 neural-bg"></div>
+          <div class="relative glass-strong rounded-3xl border border-gray-200/60 dark:border-gray-700/50 p-6 lg:p-8 card-hover">
+            <div class="flex items-center justify-between mb-6">
+              <div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide font-medium">Signal Path</p>
+                <p class="font-bold text-lg text-gray-900 dark:text-white">From Agents to Edge</p>
+              </div>
+              <span class="text-xs font-semibold text-emerald-600">Secure</span>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-start gap-4">
+                <div class="h-10 w-10 rounded-xl neural-bg flex items-center justify-center text-white font-semibold">1</div>
+                <div>
+                  <p class="text-sm font-semibold text-gray-900 dark:text-white">Agentic Applications</p>
+                  <p class="text-xs text-gray-600 dark:text-gray-400">Task planning, tool orchestration, and human-in-the-loop safety.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="h-10 w-10 rounded-xl neural-bg flex items-center justify-center text-white font-semibold">2</div>
+                <div>
+                  <p class="text-sm font-semibold text-gray-900 dark:text-white">Platform Services</p>
+                  <p class="text-xs text-gray-600 dark:text-gray-400">Model hosting, telemetry, and policy management.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="h-10 w-10 rounded-xl neural-bg flex items-center justify-center text-white font-semibold">3</div>
+                <div>
+                  <p class="text-sm font-semibold text-gray-900 dark:text-white">Edge Kubernetes Clusters</p>
+                  <p class="text-xs text-gray-600 dark:text-gray-400">Resilient workloads on consumer-grade hardware.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="h-10 w-10 rounded-xl neural-bg flex items-center justify-center text-white font-semibold">4</div>
+                <div>
+                  <p class="text-sm font-semibold text-gray-900 dark:text-white">HTTPS Ingress + Overlay Network</p>
+                  <p class="text-xs text-gray-600 dark:text-gray-400">Safe service exposure with encrypted routing.</p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-6 glass rounded-2xl border border-gray-200/50 dark:border-gray-700/50 p-4 card-hover">
+              <p class="text-sm text-gray-700 dark:text-gray-300">All technologies are private cloud based, designed for low cost adoption and consistent performance at the edge.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="edge" class="py-20 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-gray-50/50 to-transparent dark:via-gray-900/50"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary-200 dark:border-primary-800 mb-4">
+          <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-3.313 0-6 2.239-6 5s2.687 5 6 5 6-2.239 6-5-2.687-5-6-5zm0 0V3"></path></svg>
+          <span class="text-sm font-medium text-primary-700 dark:text-primary-300">Edge Stack</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">
+          <span class="gradient-text">Infrastructure that fits</span>
+          <span class="text-gray-900 dark:text-white">your budget and hardware</span>
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          Deliver production-grade agentic apps without relying on hyperscale GPUs or high-cost cloud contracts.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="glass rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 card-hover">
+          <p class="text-sm font-semibold text-gray-900 dark:text-white">Edge Kubernetes Fleet</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Operate clusters across locations with unified updates, monitoring, and rollbacks.</p>
+        </div>
+        <div class="glass rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 card-hover">
+          <p class="text-sm font-semibold text-gray-900 dark:text-white">Safety-first Networking</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Overlay networks enforce zero-trust policies while keeping services reachable.</p>
+        </div>
+        <div class="glass rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 card-hover">
+          <p class="text-sm font-semibold text-gray-900 dark:text-white">Cost-aware Scheduling</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Shift workloads to efficient nodes and reduce idle compute spend.</p>
+        </div>
+        <div class="glass rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 card-hover">
+          <p class="text-sm font-semibold text-gray-900 dark:text-white">Edge Observability</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Realtime insights for inference latency, agent success rate, and energy usage.</p>
+        </div>
+        <div class="glass rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 card-hover">
+          <p class="text-sm font-semibold text-gray-900 dark:text-white">Private Cloud Control</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Own your data, models, and uptime without sacrificing deployment speed.</p>
+        </div>
+        <div class="glass rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 card-hover">
+          <p class="text-sm font-semibold text-gray-900 dark:text-white">Agentic App Studio</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Design, test, and ship agent workflows with reusable, auditable components.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="py-20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="glass-strong rounded-3xl border border-gray-200/60 dark:border-gray-700/50 p-10 lg:p-14 text-center relative overflow-hidden card-hover">
+        <div class="absolute inset-0 opacity-60">
+          <div class="absolute -top-10 -left-10 w-40 h-40 bg-primary-500/20 rounded-full blur-3xl"></div>
+          <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl"></div>
+        </div>
+        <div class="relative space-y-6">
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Access the Skyward AI GitHub organization</h2>
+          <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Open-source repos, reference architectures, and guides for agentic AI on edge-first, cost-aware infrastructure.</p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a class="inline-flex items-center gap-2 px-8 py-3 rounded-xl neural-bg text-white transition-all duration-300 shadow-lg hover:shadow-primary-500/50 font-medium" href="https://github.com/skywardai">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4c-4.418 0-8 3.582-8 8 0 3.535 2.292 6.533 5.47 7.59.4.074.546-.174.546-.386 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.925-.89-1.172-.89-1.172-.727-.498.055-.488.055-.488.804.056 1.227.826 1.227.826.714 1.223 1.872.87 2.327.665.072-.517.28-.87.508-1.07-1.777-.202-3.644-.888-3.644-3.952 0-.873.312-1.587.823-2.147-.083-.203-.357-1.02.078-2.127 0 0 .672-.215 2.2.82.638-.178 1.323-.267 2.005-.27.682.003 1.367.092 2.006.27 1.527-1.035 2.198-.82 2.198-.82.436 1.107.162 1.924.08 2.127.512.56.822 1.274.822 2.147 0 3.073-1.87 3.748-3.653 3.946.288.247.544.735.544 1.482 0 1.07-.01 1.934-.01 2.197 0 .214.144.464.55.385C17.71 18.53 20 15.535 20 12c0-4.418-3.582-8-8-8z"></path></svg>
+              Visit GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-8 border-t border-gray-200/60 dark:border-gray-800/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-600 dark:text-gray-400">
+      <p>© 2026 Skyward AI. Built for accessible agentic infrastructure.</p>
+      <div class="flex items-center gap-4">
+        <a class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors" href="#platform">Platform</a>
+        <a class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors" href="#architecture">Architecture</a>
+        <a class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors" href="#edge">Edge Stack</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
